@@ -28,38 +28,39 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-        <!-- Page Content-->
-        <div class="container px-4 px-lg-5">
-            <!-- Heading Row-->
-            <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"></div>
-                <div class="col-lg-5">
-                    <h1 class="font-weight-light">Business Name or Tagline</h1>
-                    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                    <a class="btn btn-primary" href="{% url 'create_post' %}">Create Post</a>
-                </div>
-            </div>
-            <!-- Call to Action-->
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
-            </div>
-            <!-- Content Row-->
-           
-              {% for article in articles %}
-              <div class="col-md-4 mb-5">
+        </nav><br><br><br><br>
+
+        
+
+
+        <div class="col d-flex justify-content-center">
+            <div class="col-md-4 mb-5">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h2 class="card-title">{{ article.title }}</h2>
-                        <p class="card-text">{{ article.description }}</p>
+                        <form action="{% url 'create_post' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label> Title </label><br>
+                              <input type="text" name = "title" class="form-control"  placeholder="Enter">
+
+                            </div><br>
+                            <div class="form-group">
+                              <label>Description</label>
+                              <textarea name="description" cols="30" rows="10" class="form-control" placeholder="Enter"></textarea>
+                              
+                            </div><br>
+                            
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Comments</a></div>
+                    
                 </div>
             </div>
-              {% endfor %}
-                
-            </div>
-        </div>
+            
+          </div>
+       
+          <br><br><br><br><br>
+       
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
