@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth,messages
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
-    articles = Article.objects.order_by("-created_date")[0:5]
+    articles = Article.objects.order_by("-created_date")
     data = {
         "articles":articles,
     }
@@ -32,7 +32,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             
-            return redirect('home')
+            return redirect('dashboard')
 
         else:
             return HttpResponse("invalid username or password")
@@ -71,4 +71,25 @@ def logout(request):
     auth.logout(request)
     messages.success(request, 'logged out!')
     return redirect("login")
+
+@login_required(login_url="/login")
+def dashboard(request):
+    instances = Article.objects.all().filter(author = request.user)
+    name = request.user.first_name
+    data = {
+        "instances": instances,
+        "name":name,
+    }
+    return render(request, "dashboard.html", data)
+
+def get_articles(request, pk):
+    instances = Article.objects.all().order_by("created_date").filter(author_id = pk)
+    for i in instances:
+        name = i.author
+        break
+    data = {
+        "articles" : instances ,
+         "name" : name
+    }
+    return render(request, "get_articles.html", data)
 

@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article,Comment
 
 admin.site.register(
-    Article,
+    Article
 )
+admin.site.register(Comment)
 
 # Register your models here.

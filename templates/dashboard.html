@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br><br>
+<div class="col d-flex justify-content-center">
+        <div class="bg-null my-1 py-1 text-center">
+            <div ><h2>Welcome </h2> <h3>{{name}}</h3> </div>
+        </div>
+
+</div>
+
+<br><br>
+{% if instances %}
+{% for article in instances %}
+
+<div class="col d-flex justify-content-center">
+    <div class="col-md-8 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">{{ article.title }}</h2>
+                <p class="card-text">{{ article.description }}</p>
+                <p class="text-end">{{article.created_date}}</p>
+                    
+            </div>
+            <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Comments</a></div>
+            
+        </div>
+    </div>
+    
+</div>
+{% endfor %}
+
+{% else %}
+<br>
+<div class="col d-flex justify-content-center">
+    <div class="col-md-8 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="text-center">You Hove No Post </h2>
+                
+            </div>
+           
+        </div>
+    </div>
+    
+</div>
+<br><br><br><br><br><br>
+
+
+{% endif %}
+
+
+
+
+
+{% endblock %}
