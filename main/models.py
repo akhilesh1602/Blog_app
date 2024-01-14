@@ -16,5 +16,8 @@ class Article(models.Model):
 class Comment(models.Model):
     description = models.TextField(max_length = 256)
     comment_by = models.ForeignKey(User, default=None , on_delete = models.CASCADE)
-    def __str__(self):
-        return self.comment_by
+    article_description = models.IntegerField()
+    created_date = models.DateTimeField(default=datetime.now(), blank=True)
+   
+
+

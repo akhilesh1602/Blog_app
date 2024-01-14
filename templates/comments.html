@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="col d-flex justify-content-center">
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                
+                <form action="{% url 'comments' 1 %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label>Comment</label>
+                      <textarea name="comment" cols="30" rows="10" class="form-control" placeholder="Enter" required></textarea>
+                      
+                    </div><br>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+            
+        </div>
+    </div>
+    
+  </div>
+  <br><br><br>
+  {% if instances %}
+  {% for instance in instances %}
+  <div class="col d-flex justify-content-center">
+  <div class="col-md-8 mb-5">
+    <div class="card h-100">
+        <div class="card-body">
+            <p class="card-text">{{ instance.description }}</p>
+        </div>
+    </div>
+    </div>
+</div>
+  {% endfor %}
+  {% else %}
+  <h1>no comments</h1>
+  {% endif%}
+  
+{% endblock %}

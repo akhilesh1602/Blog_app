@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth,messages
-from . models import Article
+from . models import Article, Comment
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -92,4 +92,21 @@ def get_articles(request, pk):
          "name" : name
     }
     return render(request, "get_articles.html", data)
+
+@login_required(login_url="/login")
+def comments(request, pk):
+    if request.method == "POST":
+        instance = request.POST['comment']
+        Comment.objects.create(description = instance, comment_by = request.user)
+        
+        return render(request, "comments.html")
+
+    else:
+        instances = Comment.objects.all().order_by("created_date").filter(article_description = pk)
+        data = {
+           "instances" : instances,
+        }
+        return render(request, "comments.html", data)
+    
+
 
